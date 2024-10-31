@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
-            rb.velocity 
+            //rb.velocity 
 
         }
     }
