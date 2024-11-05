@@ -4,41 +4,31 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private CharacterController controller;
+
+    public float playerSpeed = 10f;
+
+
+    float speedDif;
+    float maxSpeed = 20f;
+
 
     Rigidbody rb;
 
-    float horizontalMove = 0f;
-
-    public float runSpeed = 6f;
-    public float jumpSpeed = 6f;
-
-    bool jump = false;
-    void Start()
+    private void Update()
     {
-        rb = GetComponent<Rigidbody>();
+        speedDif = maxSpeed - rb.velocity.x;
 
-        controller = GetComponent<CharacterController>();
 
-    }
-    void Update()
-    {
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-        
-
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
-            //rb.velocity 
+            rb.AddForce(Vector3.left * speedDif);
+
 
         }
-    }
-
-    private void FixedUpdate()
-    {
-        controller.Move(horizontalMove * Time.fixedDeltaTime * Vector3.right);
 
 
 
     }
+
+
 }
