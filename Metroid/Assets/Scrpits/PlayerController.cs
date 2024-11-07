@@ -48,13 +48,31 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
+        JumpBar();
 
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-
-        }
+        
 
     }
 
+    private void JumpBar()
+    {
+        float raycastDist = 1.2f;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, raycastDist))
+            {
+
+
+
+            // upwards speeeed
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+            }
+
+        }
+    }
 }
