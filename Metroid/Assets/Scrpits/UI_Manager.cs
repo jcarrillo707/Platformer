@@ -14,7 +14,7 @@ using JetBrains.Annotations;
 public class UI_Manager : MonoBehaviour
 {
 
-    public PlayerController playercontroller;
+    public PlayerController livingholder;
     public TMP_Text healthText;
 
     // Start is called before the first frame update
@@ -26,6 +26,6 @@ public class UI_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthText.text = "HP: " + playercontroller.health;
+        healthText.text = "HP: " + livingholder.health;
     }
 }

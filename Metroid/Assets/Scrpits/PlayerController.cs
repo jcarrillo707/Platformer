@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
 
     public float playerSpeed = 3f;
 
-    public float health;
+    //Public Float created by Konner
+    public float health = 99f;
 
 
     float speedDif;
@@ -75,6 +77,18 @@ public class PlayerController : MonoBehaviour
 
             }
 
+        }
+    }
+
+    // Public Void by Konner
+    /// <summary>
+    /// When the player's health equals 0, the scene switches to the Game Over Screen.
+    /// </summary>
+    public void Loss()
+    {
+        if (health <= 0)
+        {
+            SceneManager.LoadScene(1);
         }
     }
 }

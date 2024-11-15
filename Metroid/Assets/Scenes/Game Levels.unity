@@ -1370,6 +1370,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7301842678444693320, guid: 8101755113b8a2c469008ff037a97432, type: 3}
+      propertyPath: livingholder
+      value: 
+      objectReference: {fileID: 1706868232}
+    - target: {fileID: 7301842678444693320, guid: 8101755113b8a2c469008ff037a97432, type: 3}
       propertyPath: playercontroller
       value: 
       objectReference: {fileID: 1706868232}
@@ -1442,6 +1446,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: 91b6e448dab46fe4d8081a7cd4e18886, type: 2}
+    - target: {fileID: 8966503673491233908, guid: ef910f13f4088784fb3995034c8f15a5, type: 3}
+      propertyPath: health
+      value: 99
+      objectReference: {fileID: 0}
     - target: {fileID: 8966503673491233908, guid: ef910f13f4088784fb3995034c8f15a5, type: 3}
       propertyPath: playerSpeed
       value: 3
