@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+ * Bryce DeHart
+ * 11/17/2024
+ * Desc: this controls the player movement
+ */
 public class PlayerController : MonoBehaviour
 {
 
@@ -13,8 +18,9 @@ public class PlayerController : MonoBehaviour
 
 
     float speedDif;
-    float maxSpeed = 5f;
     float jumpForce = 5f;
+
+    bool isFacingRight = true;
 
     Rigidbody rb;
 
@@ -34,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
            // rb.AddForce(Vector3.left * playerSpeed, ForceMode.Force);
             deltaMovement.x = -1;
-
+            isFacingRight = false;
         }
 
         if (Input.GetKey(KeyCode.D))
@@ -42,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
            // rb.AddForce(Vector3.right * playerSpeed, ForceMode.Force);
             deltaMovement.x = 1;
-
+            isFacingRight = true;
         }
 
         rb.velocity = new Vector3(deltaMovement.x * playerSpeed, rb.velocity.y, rb.velocity.z); 
@@ -53,8 +59,9 @@ public class PlayerController : MonoBehaviour
     {
 
         JumpBar();
+        FacingRight();
 
-        
+
 
     }
 
@@ -62,7 +69,7 @@ public class PlayerController : MonoBehaviour
     {
         float raycastDist = 1.2f;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.W))
         {
 
             RaycastHit hit;
@@ -80,6 +87,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void FacingRight()
+    {
+        if (isFacingRight == false)
+        {
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+
+        if (isFacingRight == true)
+        {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+
+
+        }
+
+
+
+    }
     // Public Void by Konner
     /// <summary>
     /// When the player's health equals 0, the scene switches to the Game Over Screen.
