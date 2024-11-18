@@ -16,7 +16,7 @@ public class EnemyScript : MonoBehaviour
     private Vector3 rightpos;
     public bool goingLeft;
     public int speed;
-    public float EnemyHealth;
+    public float EnemyHealth = 1;
 
 
     // Start is called before the first frame update
@@ -60,7 +60,14 @@ public class EnemyScript : MonoBehaviour
         }
 
     }
+    public void EnemyLife()
+    {
+        EnemyHealth--;
+        if (EnemyHealth == 0)
+        {
 
+        }
+    }
 
 
 

@@ -47,6 +47,11 @@ public class PlayerShooting : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
+        //IF player shoots, the enemy should be destroyed
+        //  if(other.gameObject.tag == "Enemy")
+        {
+            //     Destroy(other.gameObject);
+        }
 
 
     }

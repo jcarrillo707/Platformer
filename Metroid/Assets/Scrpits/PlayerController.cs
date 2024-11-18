@@ -10,6 +10,8 @@ using UnityEngine.SceneManagement;
  */
 public class PlayerController : MonoBehaviour
 {
+    public int fallDepth;
+    private Vector3 startPosition;
 
     public float playerSpeed = 3f;
 
@@ -60,11 +62,18 @@ public class PlayerController : MonoBehaviour
 
         JumpBar();
         FacingRight();
-
+        if (transform.position.y < -10)
+        {
+            Respawn();
+        }
 
 
     }
-
+    private void Respawn()
+    {
+        health--;
+        transform.position = startPosition;
+    }
     private void JumpBar()
     {
         float raycastDist = 1.2f;
@@ -114,5 +123,23 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene(1);
         }
+    }
+    /// <summary>
+    /// This onTrigger respawns the player to new location or respawns if touvhes enemy...By Juan Carrillo
+    /// </summary>
+    /// <param name="other"></param>
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            Respawn();
+        }
+        //Starts postition for portal on the new level
+        if (other.gameObject.tag == "Portal")
+        {
+            startPosition = other.gameObject.GetComponent<PortalScript>().spawnPoint.transform.position;
+        }
+        transform.position = startPosition;
+
     }
 }
