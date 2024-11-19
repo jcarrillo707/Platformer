@@ -5,17 +5,11 @@ using UnityEngine;
 public class PortalScript : MonoBehaviour
 {
     //game object to determine where player spawns
-    public GameObject spawnPoint;
-
-    // Start is called before the first frame update
-    void Start()
+    public GameObject teleportPoint;
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        other.transform.position = teleportPoint.transform.position;
+
     }
 }

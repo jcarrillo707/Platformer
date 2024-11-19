@@ -16,7 +16,8 @@ public class EnemyScript : MonoBehaviour
     private Vector3 rightpos;
     public bool goingLeft;
     public int speed;
-    public float EnemyHealth = 1;
+    public float enemyHealth = 1;
+    public float enemyDamage = 15;
 
 
     // Start is called before the first frame update
@@ -30,6 +31,7 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         Move();
+        EnemyLife();
     }
 
 
@@ -60,12 +62,25 @@ public class EnemyScript : MonoBehaviour
         }
 
     }
+
+    // Adding capabilities for bullets to deal damage to the enemy.
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<Bullet>())
+        {
+            enemyHealth -= collision.gameObject.GetComponent<Bullet>().damage;
+
+        }
+    }
+
+
+    // when enemies die they are destroyed  -bryce
     public void EnemyLife()
     {
-        EnemyHealth--;
-        if (EnemyHealth == 0)
+        if (enemyHealth <= 0)
         {
-
+            Destroy(gameObject);
         }
     }
 

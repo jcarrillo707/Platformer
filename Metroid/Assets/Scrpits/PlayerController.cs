@@ -17,18 +17,24 @@ public class PlayerController : MonoBehaviour
 
     //Public Float created by Konner
     public float health = 99f;
+    public float hitTime = 5;
+    float blinkTime = 0.5f;
 
 
     float speedDif;
-    float jumpForce = 5f;
+    public float jumpForce = 5f;
+    public MeshRenderer mesh;
 
     bool isFacingRight = true;
+    bool hitToggle = false;
+    public bool gunCheck = false;
 
     Rigidbody rb;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        gameObject.GetComponent<MeshRenderer>();
     }
 
     private void FixedUpdate()
@@ -62,18 +68,17 @@ public class PlayerController : MonoBehaviour
 
         JumpBar();
         FacingRight();
-        if (transform.position.y < -10)
-        {
-            Respawn();
-        }
 
-
+        Loss();
     }
+    
+    /*
     private void Respawn()
     {
-        health--;
+        //health--;
         transform.position = startPosition;
     }
+    */
     private void JumpBar()
     {
         float raycastDist = 1.2f;
@@ -124,22 +129,73 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(1);
         }
     }
-    /// <summary>
-    /// This onTrigger respawns the player to new location or respawns if touvhes enemy...By Juan Carrillo
-    /// </summary>
-    /// <param name="other"></param>
-    public void OnTriggerEnter(Collider other)
+
+    //checker for if the thing is an enemy or an item
+    public void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
-            Respawn();
+            if (hitToggle == false)
+            {
+
+                health = health - collision.gameObject.GetComponent<EnemyScript>().enemyDamage; 
+                StartCoroutine(NoHits());
+                StartCoroutine(Blinking());
+
+            }
         }
-        //Starts postition for portal on the new level
-        if (other.gameObject.tag == "Portal")
+
+        if (collision.gameObject.GetComponent<HealthPack>())
         {
-            startPosition = other.gameObject.GetComponent<PortalScript>().spawnPoint.transform.position;
+            Destroy(collision.gameObject);
+
+            health = health + 25;
+
+            if (health > 99)
+            {
+
+                health = 99;
+
+            }
         }
-        transform.position = startPosition;
+
+        if (collision.gameObject.GetComponent<HeavyGunUpgrade>())
+        {
+            gunCheck = true;
+
+            Destroy(collision.gameObject);
+
+            if (gunCheck == false)
+            {
+                //boo womp
+            }
+        }
+
+    }
+    // The timers for the hitting functionality
+
+    private IEnumerator NoHits()
+    {
+        hitToggle = true;
+
+        yield return new WaitForSeconds(hitTime);
+
+        hitToggle = false;
+    }
+    
+    private IEnumerator Blinking()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+        mesh.enabled = !mesh.enabled;
+
+        yield return new WaitForSeconds(blinkTime);
+
+        mesh.enabled = mesh.enabled;
+
+        yield return new WaitForSeconds(blinkTime);
+        }
+
 
     }
 }

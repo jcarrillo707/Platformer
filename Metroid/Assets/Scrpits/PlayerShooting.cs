@@ -5,7 +5,7 @@ using UnityEngine;
 /*
  * Bryce DeHart
  * 11/17/2024
- * Desc: this controls the player shooting
+ * Desc: this controls the player shooting and several checks related to it
  */
 public class PlayerShooting : MonoBehaviour
 {
@@ -16,6 +16,8 @@ public class PlayerShooting : MonoBehaviour
     public float shotDelay;
     public bool isGoingRight = true;
     public bool upgrade;
+
+    public GameObject player;
 
     bool cooldown;
 
@@ -42,19 +44,12 @@ public class PlayerShooting : MonoBehaviour
 
         SpaceShot();
 
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-
-        //IF player shoots, the enemy should be destroyed
-        //  if(other.gameObject.tag == "Enemy")
-        {
-            //     Destroy(other.gameObject);
-        }
+        upgrade = player.GetComponent<PlayerController>().gunCheck;
 
 
     }
+
+    // the way projectiles are spawned and checking direction as well as checking if the upgrade has been obtained
     public void SpawnProjectile()
     {
         if (upgrade == false)

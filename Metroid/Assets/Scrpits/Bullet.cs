@@ -44,10 +44,12 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    // this is where you would have it change the enemy health
+    //deletes itself when touching something
+
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(this.gameObject);
+
+            Destroy(this.gameObject);
         
     }
 }
